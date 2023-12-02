@@ -38,3 +38,4 @@ teleport:
     demand-denied-sender: "§6%target% has denied your teleportation request.§r"
     demand-denied-target: "§6You have denied %sender%'s teleportation request.§r"
     demand-removed: "§6Teleportation request from %sender% removed.§r"
+    cannot-teleport-to-yourself: "§cYou can't teleport to yourself.§r"

@@ -33,7 +33,9 @@ public class MinecraftHomeRepository implements HomeRepository {
     @Override
     public List<Home> getAllHomes() {
         try {
-            return deserializeHomes();
+            final var homes = deserializeHomes();
+            LOGGER.info("Successfully loaded " + homes.size() + " homes");
+            return homes;
         } catch (final HomeRepositoryException e) {
             LOGGER.severe("Unable to get all homes");
             return new ArrayList<>();

@@ -22,6 +22,8 @@ public class TeleportCommand implements CommandExecutor {
 
     // Usage message
     private static final String USAGE_MESSAGE;
+    // Player cannot teleport to himself message
+    private static final String CANNOT_TELEPORT_TO_YOURSELF_MESSAGE;
     // Player not found message
     private static final String PLAYER_NOT_FOUND_MESSAGE;
 
@@ -43,6 +45,7 @@ public class TeleportCommand implements CommandExecutor {
         ALREADY_ASKED_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.already-demanded");
         DEMAND_SENT_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.demand-sent");
         DEMAND_RECEIVED_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.demand-received");
+        CANNOT_TELEPORT_TO_YOURSELF_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.cannot-teleport-to-yourself");
     }
 
     @Override
@@ -62,6 +65,11 @@ public class TeleportCommand implements CommandExecutor {
 
             if (target == null) {
                 player.sendMessage(PLAYER_NOT_FOUND_MESSAGE);
+                return false;
+            }
+
+            if (target.getUniqueId().equals(player.getUniqueId())) {
+                player.sendMessage(CANNOT_TELEPORT_TO_YOURSELF_MESSAGE);
                 return false;
             }
 
