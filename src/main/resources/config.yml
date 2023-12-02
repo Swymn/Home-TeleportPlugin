@@ -1,4 +1,6 @@
 spawn:
+  messages:
+    teleported: "§6You have been teleported to the spawn.§r"
   coordinates:
     x: -41
     y: 160
@@ -19,3 +21,20 @@ home:
     sethome-already-exists: "§cYou already have a home with this name.§r"
     sethome-weird-location: "§cYou can't set a home here.§r"
     sethome-created: "§6You have created a home named %name%.§r"
+
+teleport:
+  timeout: 120
+  messages:
+    empty-demand: "§cYou don't have any teleportation request.§r"
+    usage: "§cWrong usage. Use /tpa <player> to send a teleportation request.§r"
+    player-not-found: "§cPlayer not found.§r"
+    already-demanded: "§cYou have already sent a teleportation request to this player.§r"
+    demand-sent: "§6You have sent a teleportation request to %target%.§r"
+    demand-received: "§6%target% has sent you a teleportation request. You have %time% seconds to accept it by using /tpyes, or refuse it by using /tpno.§r"
+    demand-expired-sender: "§cYour teleportation request has timed out.§r"
+    demand-expired-target: "§c%target%'s teleportation request has timed out.§r"
+    demand-accepted-sender: "§6%target% has accepted your teleportation request.§r"
+    demand-accepted-target: "§6You have accepted %sender%'s teleportation request.§r"
+    demand-denied-sender: "§6%target% has denied your teleportation request.§r"
+    demand-denied-target: "§6You have denied %sender%'s teleportation request.§r"
+    demand-removed: "§6Teleportation request from %sender% removed.§r"

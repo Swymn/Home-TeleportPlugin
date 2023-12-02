@@ -15,7 +15,7 @@ public class MinecraftConfigurationProvider implements ConfigurationProvider {
 
     @Override
     public String getString(final String path) {
-        return configuration.getString(path, "Something went wrong while trying to get the message, please contact an administrator.");
+        return configuration.getString(path, "§cSomething went wrong while trying to get the message, please contact an administrator.§r");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package fr.swynn.commands;
 
 import fr.swynn.HomeAndTPA;
+import fr.swynn.core.data.ConfigurationProvider;
 import fr.swynn.core.data.TeleportService;
 import fr.swynn.core.model.TeleportDemand;
 import fr.swynn.runnables.TeleportTimer;
@@ -12,19 +13,37 @@ import org.bukkit.entity.Player;
 public class TeleportCommand implements CommandExecutor {
 
     // Teleport service
-    private static final TeleportService TELEPORT_SERVICE = HomeAndTPA.getInstance().getTeleportService();
+    private static final TeleportService TELEPORT_SERVICE;
+    // Configuration provider
+    private static final ConfigurationProvider CONFIGURATION_PROVIDER;
+
+    // Request timeout
+    private static final int REQUEST_TIMEOUT;
 
     // Usage message
-    private static final String USAGE_MESSAGE = "Usage: /tpa <player>";
+    private static final String USAGE_MESSAGE;
     // Player not found message
-    private static final String PLAYER_NOT_FOUND_MESSAGE = "Player not found.";
+    private static final String PLAYER_NOT_FOUND_MESSAGE;
 
     // Already asked message
-    private static final String ALREADY_ASKED_MESSAGE = "You already asked this player.";
+    private static final String ALREADY_ASKED_MESSAGE;
     // Demand sent message
-    private static final String DEMAND_SENT_MESSAGE = "Demand sent.";
+    private static final String DEMAND_SENT_MESSAGE;
     // Demand received message
-    private static final String DEMAND_RECEIVED_MESSAGE = "You received a demand from %s. Do you want to accept it ? You have 1 minute";
+    private static final String DEMAND_RECEIVED_MESSAGE;
+
+    static {
+        TELEPORT_SERVICE = HomeAndTPA.getInstance().getTeleportService();
+        CONFIGURATION_PROVIDER = HomeAndTPA.getInstance().getConfigurationProvider();
+
+        REQUEST_TIMEOUT = CONFIGURATION_PROVIDER.getInt("teleport.timeout", 120);
+
+        USAGE_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.usage");
+        PLAYER_NOT_FOUND_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.player-not-found");
+        ALREADY_ASKED_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.already-demanded");
+        DEMAND_SENT_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.demand-sent");
+        DEMAND_RECEIVED_MESSAGE = CONFIGURATION_PROVIDER.getString("teleport.messages.demand-received");
+    }
 
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
@@ -53,8 +72,8 @@ public class TeleportCommand implements CommandExecutor {
 
             final var timer = new TeleportTimer(player, target);
 
-            player.sendMessage(DEMAND_SENT_MESSAGE);
-            target.sendMessage(DEMAND_RECEIVED_MESSAGE.formatted(player.getName()));
+            player.sendMessage(DEMAND_SENT_MESSAGE.replace("%target%", target.getName()));
+            target.sendMessage(DEMAND_RECEIVED_MESSAGE.replace("%target%", player.getName()).replace("%time%", String.valueOf(REQUEST_TIMEOUT)));
 
             timer.runTaskTimer(HomeAndTPA.getInstance(), 0, 20L);
 
