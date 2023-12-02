@@ -1,5 +1,7 @@
 package fr.swynn.commands;
 
+import fr.swynn.HomeAndTPA;
+import fr.swynn.core.data.ConfigurationProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,9 +11,21 @@ import org.bukkit.entity.Player;
 
 public class SpawnCommand implements CommandExecutor {
 
-    private static final int SPAWN_X = -41;
-    private static final int SPAWN_Y = 160;
-    private static final int SPAWN_Z = 97;
+    // Configuration provider
+    private static final ConfigurationProvider CONFIGURATION_PROVIDER;
+
+    // Spawn coordinates
+    private static final int SPAWN_X;
+    private static final int SPAWN_Y;
+    private static final int SPAWN_Z;
+
+    static {
+        CONFIGURATION_PROVIDER = HomeAndTPA.getInstance().getConfigurationProvider();
+
+        SPAWN_X = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.x", 0);
+        SPAWN_Y = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.y", 0);
+        SPAWN_Z = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.z", 0);
+    }
 
     @Override
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
