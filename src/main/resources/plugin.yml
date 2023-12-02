@@ -1,1 +1,1 @@
-name: "HomeAndTPA"version: 1.0main: "fr.swynn.HomeAndTPA"
+name: "HomeAndTPA"version: 1.0main: "fr.swynn.HomeAndTPA"author: "Swynn"api: [ ]commands:  home:    description: "Teleport to your home"    usage: "/home"  sethome:    description: "Set your home"    usage: "/sethome"  delhome:    description: "Delete your home"    usage: "/delhome"  spawn:    description: "Teleport to spawn"    usage: "/spawn"
