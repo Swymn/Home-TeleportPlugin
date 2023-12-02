@@ -4,6 +4,7 @@ import fr.swynn.core.data.TeleportService;
 import fr.swynn.core.model.TeleportDemand;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,8 +27,15 @@ public class MinecraftTeleportService implements TeleportService {
     }
 
     @Override
-    public TeleportDemand getDemand(final UUID sender) {
+    public TeleportDemand getSenderDemand(final UUID sender) {
         return teleportDemands.get(sender);
+    }
+
+    @Override
+    public List<TeleportDemand> getTargetDemand(UUID target) {
+        return teleportDemands.values().stream()
+                .filter(demand -> demand.target().equals(target))
+                .toList();
     }
 
     @Override
