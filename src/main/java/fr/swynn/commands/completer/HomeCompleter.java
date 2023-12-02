@@ -13,7 +13,11 @@ import java.util.List;
 public class HomeCompleter implements TabCompleter {
 
     // Home service
-    private static final HomeService SERVICE = HomeAndTPA.getInstance().getHomeService();
+    private static final HomeService HOME_SERVICE;
+
+    static {
+        HOME_SERVICE = HomeAndTPA.getInstance().getHomeService();
+    }
 
     @Override
     public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
@@ -26,7 +30,7 @@ public class HomeCompleter implements TabCompleter {
 
 
         if (args.length == 1) {
-            final String[] playerHomes = SERVICE.getPlayerHomeNames(player.getUniqueId()).toArray(new String[0]);
+            final String[] playerHomes = HOME_SERVICE.getPlayerHomeNames(player.getUniqueId()).toArray(new String[0]);
             for (final String home : playerHomes) {
                 if (home.startsWith(args[0])) {
                     completions.add(home);

@@ -3,3 +3,19 @@ spawn:
     x: -41
     y: 160
     z: 97
+
+home:
+  max-home-count: 3
+  name-length-limit: 36
+  messages:
+    home-usage: "§cWrong usage. Use /home <name> to teleport to your home.§r"
+    home-not-found: "§cHome not found.§r"
+    home-teleported: "§6You have been teleported to your home %name%.§r"
+    delhome-usage: "§cWrong usage. Use /delhome <name> to delete a home.§r"
+    delhome-deleted: "§6You have deleted your home %name%.§r"
+    sethome-usage: "§cWrong usage. Use /sethome <name> to set a home.§r"
+    sethome-limit: "§cYou can't have more than %limit% homes.§r"
+    sethome-name-too-long: "§cThe name of your home can't be longer than %max% characters.§r"
+    sethome-already-exists: "§cYou already have a home with this name.§r"
+    sethome-weird-location: "§cYou can't set a home here.§r"
+    sethome-created: "§6You have created a home named %name%.§r"
