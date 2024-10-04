@@ -27,7 +27,7 @@ jobs:
         run: mvn clean package
 
       - name: Rename JAR file
-        run: mv ./server/plugins/home&tpa-jar-with-dependencies.jar ./server/plugins/home&tpa-${{ env.VERSION }}.jar
+        run: mv "./server/plugins/home&tpa-jar-with-dependencies.jar" "./server/plugins/home&tpa-${{ env.VERSION }}.jar"
 
       - name: Create Release
         id: create_release
@@ -47,6 +47,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./server/plugins/home&tpa-${{ env.VERSION }}.jar
-          asset_name: home&tpa-${{ env.VERSION }}.jar
+          asset_path: "./server/plugins/home&tpa-${{ env.VERSION }}.jar"
+          asset_name: "home&tpa-${{ env.VERSION }}.jar"
           asset_content_type: application/java-archive
