@@ -2,6 +2,7 @@ spawn:
   messages:
     teleported: "§6You have been teleported to the spawn.§r"
   coordinates:
+    world: world
     x: -41
     y: 160
     z: 97
@@ -10,7 +11,8 @@ home:
   max-home-count: 3
   name-length-limit: 36
   messages:
-    home-usage: "§cWrong usage. Use /home <name> to teleport to your home.§r"
+    home-empty: "§6You don't have any home§r"
+    home-list: "§6Here is all your home(s): %homes%.§r"
     home-not-found: "§cHome not found.§r"
     home-teleported: "§6You have been teleported to your home %name%.§r"
     delhome-usage: "§cWrong usage. Use /delhome <name> to delete a home.§r"

@@ -17,8 +17,10 @@ public class HomeCommand implements CommandExecutor {
     // Configuration provider
     private static final ConfigurationProvider CONFIGURATION_PROVIDER;
 
-    // Home commande usage message
-    private static final String HOME_COMMAND_USAGE;
+    // Home empty usage message
+    private static final String HOME_EMPTY;
+    // Home empty usage message
+    private static final String HOME_LIST;
     // Home not found message
     private static final String HOME_NOT_FOUND;
     // Home teleported message
@@ -28,7 +30,8 @@ public class HomeCommand implements CommandExecutor {
         HOME_SERVICE = HomeAndTPA.getInstance().getHomeService();
         CONFIGURATION_PROVIDER = HomeAndTPA.getInstance().getConfigurationProvider();
 
-        HOME_COMMAND_USAGE = CONFIGURATION_PROVIDER.getString("home.messages.home-usage");
+        HOME_EMPTY = CONFIGURATION_PROVIDER.getString("home.messages.home-empty");
+        HOME_LIST = CONFIGURATION_PROVIDER.getString("home.messages.home-list");
         HOME_NOT_FOUND = CONFIGURATION_PROVIDER.getString("home.messages.home-not-found");
         HOME_TELEPORTED = CONFIGURATION_PROVIDER.getString("home.messages.home-teleported");
     }
@@ -41,8 +44,14 @@ public class HomeCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            player.sendMessage(HOME_COMMAND_USAGE);
-            return false;
+            final var homeNames = HOME_SERVICE.getPlayerHomeNames(player.getUniqueId());
+            if (homeNames.isEmpty()) {
+                player.sendMessage(HOME_EMPTY);
+                return true;
+            } else {
+                player.sendMessage(HOME_LIST.replace("%homes%", String.join(", ", homeNames)));
+            }
+            return true;
         }
 
         if (args.length == 1) {

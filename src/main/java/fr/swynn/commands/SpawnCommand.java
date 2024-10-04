@@ -15,6 +15,7 @@ public class SpawnCommand implements CommandExecutor {
     private static final ConfigurationProvider CONFIGURATION_PROVIDER;
 
     // Spawn coordinates
+    private static final String WORLD;
     private static final int SPAWN_X;
     private static final int SPAWN_Y;
     private static final int SPAWN_Z;
@@ -25,6 +26,7 @@ public class SpawnCommand implements CommandExecutor {
     static {
         CONFIGURATION_PROVIDER = HomeAndTPA.getInstance().getConfigurationProvider();
 
+        WORLD = CONFIGURATION_PROVIDER.getString("spawn.coordinates.world");
         SPAWN_X = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.x", 0);
         SPAWN_Y = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.y", 0);
         SPAWN_Z = CONFIGURATION_PROVIDER.getInt("spawn.coordinates.z", 0);
@@ -39,7 +41,7 @@ public class SpawnCommand implements CommandExecutor {
             return false;
         }
 
-        final var world = Bukkit.getWorld("world");
+        final var world = Bukkit.getWorld(WORLD);
         final var location = new Location(world, SPAWN_X, SPAWN_Y, SPAWN_Z);
 
         player.sendMessage(TELEPORTED_MESSAGE);
